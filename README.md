@@ -57,3 +57,13 @@ Start time: 8 pm
 Finish time: 10 pm
 
 Actual time needed to complete: 2 hours
+
+Name of feature:  . Errors (revisited): As a user, I want clear messages if something goes wrong so I know if I need to make any changes or try again in a different manner.
+
+Estimate of time needed to complete: 1 hours
+
+Start time: 8 pm
+
+Finish time: 10 pm
+
+Actual time needed to complete: 2 hours
