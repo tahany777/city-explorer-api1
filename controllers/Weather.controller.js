@@ -40,5 +40,9 @@ const weather2 = (req, res) => {
   if(city) {res.send(city);}
   else {res.status(500).send('Not Available');}
 };
+
 module.exports={weather, weather1, weather2};
+
+
+
 

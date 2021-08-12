@@ -1,23 +1,22 @@
+'use strict';
+
 require('dotenv').config();
 const express = require('express');
 const app = express();
 const cors = require('cors');
 app.use(cors());
-const { weather, weather1, weather2 } = require('./controllers/Weather.controller');
-const movies = require('./controllers/Movie.controller');
-const port = process.env.PORT || 8000;
-
-/*app.get('/weather', (req, res) => {
-  //let data1 = newData2.map(el => el.city_name + el.data[1].weather.description + el.data[1].datetime + el.lon);
-  res.send(newData2);
-});*/
-
-app.get('/weather/:lon/:lat/:city_name', weather2);
-
-app.get('/weather/:city_name', weather1);
-app.get('/weather/:lat/:lon', weather);
-
-app.get('/movies/:city_name', movies);
+let PORT = process.env.PORT;
+const weather = require('./modules/weather.js');
 
 
-app.listen(port, () => console.log(`listening on port ${port}`));
+app.get('/weather', weatherHandler);
+
+function weatherHandler(request, response) {
+  const { lat, lon } = request.query;
+  weather(lat, lon).then(summaries => response.send(summaries.data)).catch((error) => {
+    console.error(error);
+    response.status(200).send('Sorry. Something went wrong!');
+  });
+}
+
+app.listen(PORT, () => console.log(`Server up on ${PORT}`));
