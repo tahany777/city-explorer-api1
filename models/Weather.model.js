@@ -8,3 +8,4 @@ class Forecast {
 }
 
 module.exports=Forecast;
+
