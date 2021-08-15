@@ -7,6 +7,8 @@ const { weather, weather1, weather2 } = require('./controllers/Weather.controlle
 const movies = require('./controllers/Movie.controller');
 const port = process.env.PORT || 8000;
 
+
+
 /*app.get('/weather', (req, res) => {
   //let data1 = newData2.map(el => el.city_name + el.data[1].weather.description + el.data[1].datetime + el.lon);
   res.send(newData2);

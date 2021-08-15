@@ -6,27 +6,26 @@ const WEATHER_API_KEY = process.env.WEATHER_API_KEY;
 const data = require('../data/weather.json');
 let newData = JSON.stringify(data);
 let newData2 = JSON.parse(newData);
-//let cache = {};
-
+const Cache = require('../helpers/forCastCache.helper');
+const forCastCache = new Cache([]);
 
 const weather = (req, response) => {
-  //let key = req.params.city_name;
   let url1 = `http://api.weatherbit.io/v2.0/forecast/daily?lat=${req.params.lat}&lon=${req.params.lon}&key=${WEATHER_API_KEY}&days=5`;
-  //if(cache[key]) {
-  //response.send(cache[key]);
-  //} else {
-  let newArr = [];
-  let filtered;
-  axios.get(url1).then(res => {
-    //cache[key] = res.data.data;
-    filtered = res.data;
-    newArr = filtered.data.map((el) => {return new Forecast(el);});
-    response.send(newArr);
-  }).catch(err => {
-    response.status(500).send(err);
-    console.log(err);
-  });
-  //}
+  if(forCastCache.forcast.length) {
+    response.send(forCastCache.forcast);
+  } else {
+    let newArr = [];
+    let filtered;
+    axios.get(url1).then(res => {
+      filtered = res.data;
+      newArr = filtered.data.map((el) => {return new Forecast(el);});
+      forCastCache.forcast = newArr;
+      response.send(newArr);
+    }).catch(err => {
+      response.status(500).send(err);
+      console.log(err);
+    });
+  }
 };
 
 const weather1 = (req, res) => {
@@ -47,7 +46,3 @@ const weather2 = (req, res) => {
 };
 
 module.exports={weather, weather1, weather2};
-
-
-
-
