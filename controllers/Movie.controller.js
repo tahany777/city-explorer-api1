@@ -17,7 +17,7 @@ const movies = async (request, response) => {
       newArrMovie = filteredMovie.map(el => {return new Movies(el); });
       console.log(results);
       forCastCache.forcast = newArrMovie;
-      response.send(newArrMovie.results);
+      response.send(newArrMovie);
     }).catch(err => {
       response.status(500).send(err);
     });
